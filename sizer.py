@@ -6,9 +6,15 @@ from tkinter.colorchooser import askcolor
 
 def expand_img(img, aspect_ratio, colour_hex):
     if (int(img.width * aspect_ratio) - img.height) < (int(img.height * aspect_ratio) - img.width):
-        return ImageOps.expand(img,border=(0, int(((img.width * aspect_ratio) - img.height) / 2)), fill=colour_hex)
+        if (int(img.width * aspect_ratio) - img.height) < 0:
+            return ImageOps.expand(img,border=(int(((img.height / aspect_ratio) - img.width) / 2), 0), fill=colour_hex)
+        else:
+            return ImageOps.expand(img,border=(0, int(((img.width * aspect_ratio) - img.height) / 2)), fill=colour_hex)
     else:
-        return ImageOps.expand(img,border=(int(((img.height * aspect_ratio) - img.width) / 2), 0), fill=colour_hex)
+        if  (int(img.height * aspect_ratio) - img.width) < 0:
+            return ImageOps.expand(img,border=(0, int(((img.width / aspect_ratio) - img.height) / 2)), fill=colour_hex)
+        else:
+            return ImageOps.expand(img,border=(int(((img.height * aspect_ratio) - img.width) / 2), 0), fill=colour_hex)
 
 class BtnStore:
     def __init__(self):
